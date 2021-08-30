@@ -6,15 +6,13 @@ Repository Backend Test for Bukit Vista Intern
 - mysql
 
 ## Getting Statted:
-First of all, make sure you have installed software requirements above before run this REST API. If you have not installed, you can clone this repo or follow this instructions.
-1. Make your project directory `mkdir backend-test`
-2. Create some directories inside that directory to make clean project
-`backend-test$ mkdir config` for connection config to mysql
-`backend-test$ mkdir controllers` for request controller
-`backend-test$ mkdir models` for ORM models using Sequilize
-`backend-test$ mkdir routes` for listing endpoints that you want to create
+First of all, make sure you have installed software requirements above before run this REST API. If you have not installed, you can clone this repo by following this instructions.
+1. Clone this repository on your local computer
+`git clone git@github.com:RizqiPangestu/Backend-Test.git` (if you use ssh)
 3. Install depedencies
-`backend-test$ npm install express axios sequilize`
+```bash
+backend-test$ npm install express axios sequilize
+```
 install this package too if you want to be same as this repo
 `backend-test$ npm install bcrypt body-parser cookie-parser pino-http`
 Note : cookies and pino is not implemented yet
