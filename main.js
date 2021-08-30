@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require('body-parser')
 const cors = require("cors");
+// var pino = require('pino-http');
 var routes = require('./routes/routes.js')
 
 const app = express();
+// app.use(pino);
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -26,14 +28,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'))
 
+app.use(routes);
+
+
 
 // simple route
 app.get("/", (req, res) => {
-  console.log(req.url);
+  // req.log.info('something');
   res.sendFile(__dirname + '/homepage.html');
 });
-
-app.use(routes);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
