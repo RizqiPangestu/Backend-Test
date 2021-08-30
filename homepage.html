@@ -1,0 +1,32 @@
+<html>
+   <head>
+       <h1 style="text-align:center;">This is Head</h1>
+       <script type = "text/javascript" src="files/homepage.js"></script>
+   </head>
+   
+   <body>
+       
+    <form id='search_form' onsubmit="searchButton()" method = "GET">
+        Title: <input type = "text" id="title">
+        <input type = "submit" value = "Search">
+    </form>
+    
+    <form action="http://localhost:8081/movies/favourites" method="GET">
+        <button>Favourite List</button>
+    </form>
+
+    <form action="http://localhost:8081/" method="GET">
+        <button>Refresh Page</button>
+    </form>
+
+    <img id="poster" src="http://www.omdbapi.com/src/poster.jpg" alt=""> <br>
+    <input type="button" name="addFavourite" id="addFavourite" value="add to favourite" disabled='disabled'>
+    <script>
+        disableButton(document.getElementById('poster').getAttribute('src'))
+
+    </script>
+
+    
+      
+   </body>
+</html>
