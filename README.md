@@ -11,7 +11,7 @@ First of all, make sure you have installed software requirements above before ru
 ```bash
 git clone git@github.com:RizqiPangestu/Backend-Test.git
 ```
-    if you use ssh
+if you use ssh
 
 2. Install depedencies
 ```bash
