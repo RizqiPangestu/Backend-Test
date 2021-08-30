@@ -18,13 +18,13 @@ npm install express axios sequilize
 ```
 install this package too if you want to be same as this repo
 ```bash
-npm install bcrypt body-parser cookie-parser pino-http
+npm install bcrypt body-parser cookie-parser pino@next
 ```
-Note : cookies and pino is not implemented yet
+Note : cookies is not implemented yet
 
 3. Install mysql. If you use ubuntu, follow [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04). Follow the instruction and create `root` as admin and `password` as password
 
-4. Get Started by running `node main.js`. It will bring you to homepage. You can find movie poster url by typing it`s title.
+4. Get Started by running `node --experimental-worker main.js | pino-pretty`. It will bring you to homepage. You can find movie poster url by typing it's title. `pino-pretty` used for request logging on your console. 
 
 
 Note : This application just can running on localhost for now. Enjoy:)
