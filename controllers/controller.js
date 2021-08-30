@@ -1,13 +1,13 @@
 // Import model db
 const axios = require('axios');
 var bcrypt = require('bcrypt');
+const logger = require('pino')();
 var db = require('../models/database.js');
 
 // Forbidden Request
 exports.getMovies = (req, res) => {
-    console.log(req.url)
+    logger.info('FORBIDDEN REQUEST')
     try {
-        console.log("FORBIDDEN REQUEST")
         res.sendStatus(403);
     } catch (err) {
         console.log(err);
@@ -16,35 +16,25 @@ exports.getMovies = (req, res) => {
 
 // Get Movies Poster
 exports.getMoviesTitle = (req,res) => {
-    console.log(req.url);
-    console.log(req.params)
+    logger.info('[GET REQUEST] Get Movies Poster URL')
     var url = 'http://www.omdbapi.com/?t=' + req.params.title + '&apikey=f34ddbe9'
     axios
         .get(url,{
             todo: ''
         })
-        .then(response => {
-            console.log(url);
-            console.log(`statusCode: ${response.status}`);
-            console.log(`statusText: ${response.statusText}`);
-            var data = response.data;
-            console.log(data);
-            console.log(data["Title"]);
-            console.log(data["Poster"]);            
+        .then(response => {        
             res.send(response.data["Poster"]);
         })
         .catch(error => {
-          console.error(error)
-          data = JSON.stringify(error.response.data)
-          res.send(data);
-          res.end("Error");
+          console.error(error);
+          res.end();
         })
     
 }
 
 // Get Favourites Poster
 exports.getFavouritePosters = (req,res) => {
-    console.log(req.url)
+    logger.info("[GET REQUEST] get user id: %d favourite posters URL list",req.params.user_id);
     db.favourites.findAll({
         where:{
             user_id : req.params.user_id
@@ -60,9 +50,8 @@ exports.getFavouritePosters = (req,res) => {
 
 // Add Favourites Poster
 exports.addFavouritesPoster = (req,res) => {
-    console.log(req.url)
+    logger.info('[POST REQUEST] add new user favourite poster')
     if(!req.body.user_id){
-        console.log("BAD REQUEST");
         res.sendStatus(400);
         return;
     }
@@ -83,12 +72,9 @@ exports.addFavouritesPoster = (req,res) => {
 
 // Add User
 exports.addUser = (req,res) => {
-    console.log("ADD USER")
-    console.log(req.body)
+    logger.info('[POST REQUEST] add new user favourite poster')
     bcrypt.hash(req.body.password,10,(error,hash) =>{
         if(!req.body.name || !req.body.password){
-            console.log("BAD REQUEST")
-            console.log(res.req.body)
             res.sendStatus(400);
             return;
         }

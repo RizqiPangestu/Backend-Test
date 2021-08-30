@@ -1,11 +1,10 @@
 const express = require("express");
 const bodyParser = require('body-parser')
 const cors = require("cors");
-// var pino = require('pino-http');
+const logger = require('pino')();
 var routes = require('./routes/routes.js')
 
 const app = express();
-// app.use(pino);
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -17,24 +16,22 @@ connection.sync({ force: false }).then(() => {
  });
 
 app.use(cors(corsOptions));
+
 // parse requests of content-type - application/json
 // create application/json parser
 // var jsonParser = bodyParser.json()
 app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'))
 
 app.use(routes);
 
-
-
 // simple route
 app.get("/", (req, res) => {
-  // req.log.info('something');
+  logger.info('[GET REQUEST] Entering Homepage')
   res.sendFile(__dirname + '/homepage.html');
 });
 // set port, listen for requests
