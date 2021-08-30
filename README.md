@@ -8,16 +8,21 @@ Repository Backend Test for Bukit Vista Intern
 ## Getting Statted:
 First of all, make sure you have installed software requirements above before run this REST API. If you have not installed, you can clone this repo by following this instructions.
 1. Clone this repository on your local computer
-`git clone git@github.com:RizqiPangestu/Backend-Test.git` (if you use ssh)
-3. Install depedencies
+```bash
+git clone git@github.com:RizqiPangestu/Backend-Test.git
+```
+if you use ssh
+2. Install depedencies
 ```bash
 backend-test$ npm install express axios sequilize
 ```
 install this package too if you want to be same as this repo
-`backend-test$ npm install bcrypt body-parser cookie-parser pino-http`
+```bash
+backend-test$ npm install bcrypt body-parser cookie-parser pino-http
+```
 Note : cookies and pino is not implemented yet
-4. Install mysql. If you use ubuntu, follow [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04). Follow the instruction and create admin `root` and password `password`
-5. Get Started by running `node main.js`. It will bring you to homepage. You can find movie poster url by typing it`s title.
+3. Install mysql. If you use ubuntu, follow [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04). Follow the instruction and create admin `root` and password `password`
+4. Get Started by running `node main.js`. It will bring you to homepage. You can find movie poster url by typing it`s title.
 
 
 Note : This application just can running on localhost for now. Enjoy:)
