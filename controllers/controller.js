@@ -28,37 +28,61 @@ exports.getMoviesTitle = (req,res) => {
         .catch(error => {
           console.error(error);
           res.end();
-        })
-    
+        })  
 }
 
 // Get Favourites Poster
 exports.getFavouritePosters = (req,res) => {
-    logger.info("[GET REQUEST] get user id: %d favourite posters URL list",req.params.user_id);
-    db.favourites.findAll({
-        where:{
-            user_id : req.params.user_id
-        }
-    })
-        .then(data => {
-            res.send(data);
+    if (req.params.user_id == 0){
+        logger.info("[GET REQUEST] get all users favourite posters URL list");
+        db.favourites.findAll({})
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }else{
+        logger.info("[GET REQUEST] get user id: %d favourite posters URL list",req.params.user_id);
+        db.favourites.findAll({
+            where:{
+                user_id : req.params.user_id
+            }
         })
-        .catch(err => {
-            console.error(err);
-        })
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
 }
 
 // Add Favourites Poster
-exports.addFavouritesPoster = (req,res) => {
+exports.addFavouritesPoster = async (req,res) => {
     logger.info('[POST REQUEST] add new user favourite poster')
     if(!req.body.user_id){
         res.sendStatus(400);
         return;
     }
 
+    var url = 'http://www.omdbapi.com/?t=' + req.body.title + '&apikey=f34ddbe9'
+    await axios
+        .get(url,{
+            todo: ''
+        })
+        .then(response => {        
+            url = response.data["Poster"];
+        })
+        .catch(error => {
+          console.error(error);
+          res.end();
+        })  
+
     const newFavourite = {
         user_id : req.body.user_id,
-        title : req.body.title
+        title : req.body.title,
+        poster_url : url
     };
 
     db.favourites.create(newFavourite)

@@ -37,7 +37,7 @@ Use this urls to use some features
 - `/movies/` It's Forbidden
 - `/movies/{title}` Find poster's url from `{title}` movies
 example `http://http://localhost:8080/movies/harry potter?` will return [this](https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWIxLTk0N2UtN2ZlYTdkN2IzNDNlXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg)
-- `/movies/favourites/{user_id}` Return list of `{user_id}`'s favourite movies
+- `/movies/favourites/{user_id}` Return list of `{user_id}`'s favourite movies poster URL. If `0`, it will return all user's 
 
 ### POST METHOD
 - `/movies/favourites` Add favourite movies to requested `user_id`
