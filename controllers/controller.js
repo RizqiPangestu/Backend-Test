@@ -40,7 +40,7 @@ exports.getMoviesTitle = (req,res) => {
 exports.getFavouritePosters = (req,res) => {
     if (req.params.user_id == 0){
         req.session.views = (req.session.views || 0) + 1;
-        logger.info("[GET REQUEST] get all users favourite posters URL list : " + req.session.views + ' views');
+        logger.info("[GET REQUEST] get all users favourite posters URL list : ", req.session.views + ' views');
         db.favourites.findAll({})
             .then(data => {
                 res.send(data);
@@ -50,14 +50,17 @@ exports.getFavouritePosters = (req,res) => {
             })
     }else{
         req.session.views = (req.session.views || 0) + 1;
-        logger.info("[GET REQUEST] get user id: %d favourite posters URL list",req.params.user_id +' : ' + req.session.views + ' views');;
+        logger.info('[GET REQUEST] get user id: ' + req.params.user_id + ' favourite posters URL list : ' + req.session.views + ' views');;
         db.favourites.findAll({
             where:{
                 user_id : req.params.user_id
             }
         })
             .then(data => {
-                res.send(data);
+                for (var index in data) {
+                    res.write(data[index]['poster_url'] + '\n');
+                }
+                res.end();
             })
             .catch(err => {
                 console.error(err);

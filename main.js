@@ -14,7 +14,7 @@ var corsOptions = {
 };
 
 const connection = require('./config/connection.js');
-connection.sync({ force: true }).then(() => {
+connection.sync({ force: false }).then(() => {
    console.log("Drop and re-sync db.");
  });
 
