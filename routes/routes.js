@@ -1,9 +1,5 @@
-// Import express
 var express = require('express');
-// Import Controller Product
 var controller = require('../controllers/controller.js')
- 
- // Init express router
 var router = express.Router();
  
 // Route Get movies

@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config({path:'/media/estu/Hard Disk/Project/Backend-Test/controllers/.env'})
-// console.log(process.env.TOKEN_KEY)
 
 const config = process.env.TOKEN_KEY;
-// console.log(config.TOKEN_KEY);
 
 const verifyToken = (req, res, next) => {
   const token =

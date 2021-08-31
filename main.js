@@ -21,8 +21,6 @@ connection.sync({ force: true }).then(() => {
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
-// create application/json parser
-// var jsonParser = bodyParser.json()
 app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -37,12 +35,13 @@ app.use(express.static('public'))
 
 app.use(routes);
 
-// simple route
+// homepage route
 app.get("/",(req, res) => {
   req.session.views = (req.session.views || 0) + 1;
   logger.info('[GET REQUEST] Entering Homepage : ' + req.session.views + ' views');
   res.sendFile(__dirname + '/homepage.html');
 });
+
 // set port, listen for requests
 const PORT = process.env.PORT;
 console.log(PORT)

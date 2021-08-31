@@ -1,9 +1,5 @@
-// import sequelize 
 const { Sequelize } = require('sequelize');
 const bcrypt = require('bcrypt')
-
-// import connection 
-// import con from "../config/connection.js";
 var connection = require('../config/connection.js')
  
 // init DataTypes

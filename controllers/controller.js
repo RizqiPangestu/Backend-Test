@@ -1,9 +1,7 @@
-// Import model db
 require("dotenv").config()
 const randomstring = require("randomstring");
 var fs = require('fs');
 const auth = require("../middleware/auth");
-const cookieSession = require('cookie-session')
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
@@ -113,6 +111,7 @@ exports.addUser = (req,res) => {
             res.sendStatus(400);
             return;
         }
+        // Not Finish Yet
         // fs.writeFileSync('controllers/.env', 'TOKEN_KEY='+randomstring.generate());
         console.log("TOKEN KEY = ",process.env["TOKEN_KEY"])
 
