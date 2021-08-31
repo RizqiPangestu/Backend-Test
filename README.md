@@ -42,3 +42,7 @@ example `http://http://localhost:8080/movies/harry potter?` will return [this](h
 ### POST METHOD
 - `/movies/favourites` Add favourite movies to requested `user_id`
 - `/user/add` Add new user
+
+# TODOS
+- Auth bearer token feature
+- Cookies
