@@ -43,13 +43,9 @@ Use this urls to use some features
 - `/movies/favourites/{user_id}` Return list of `{user_id}`'s favourite movies poster URL. If `0`, it will return all user's 
 
 ### POST METHOD
-- `/movies/favourites` Add favourite movies to requested `user_id`
+- `/movies/favourites` Add favourite movies to requested `user_id`. To add new favourite, request using json format `{"user_id":"your_user_id","title":"movie_title_to_add"}`
 
-To add new favourite, request using json format `{"user_id":"your_user_id","title":"movie_title_to_add"}`
-
-- `/user/add` Add new user
-
-To add new favourite, request using json format `{"name":"your_user_id","password":"password"}`
+- `/user/add` Add new user. To add new favourite, request using json format `{"name":"your_user_id","password":"password"}`
 
 # TODOS
 - Auth bearer token feature
