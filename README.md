@@ -12,11 +12,11 @@ First of all, make sure you have installed software requirements above before ru
 git clone git@github.com:RizqiPangestu/Backend-Test.git
 ```
 
-2. Install depedencies
+2. Install dependencies
 ```bash
 npm install express axios sequilize
 ```
-install this package too if you want to be same as this repo
+install this package too if you want to make sure all needed packages installed
 ```bash
 npm install cors bcrypt body-parser cookie-session pino@next pino-pretty jsonwebtoken
 ```
@@ -24,7 +24,7 @@ Note : Authentication bearer token is not implemented yet
 
 3. Install mysql. If you use ubuntu, follow [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04). Follow the instruction and create `root` as admin and `password` as password
 
-4. Get Started by running `node --experimental-worker main.js | pino-pretty`. It will bring you to homepage. You can find movie poster url by typing it's title. `pino-pretty` used for request logging on your console. 
+4. Get Started by running `node --experimental-worker main.js | pino-pretty`. It will bring you to homepage, make sure the `homepage.html` from action has same port as in `.env`. You can find movie poster url by typing it's title. `pino-pretty` used for request logging on your console. 
 
 
 Note : This application just can running on localhost for now. Enjoy:)
