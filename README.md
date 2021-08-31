@@ -18,7 +18,7 @@ npm install express axios sequilize
 ```
 install this package too if you want to be same as this repo
 ```bash
-npm install bcrypt body-parser cookie-session pino@next pino-pretty
+npm install cors bcrypt body-parser cookie-session pino@next pino-pretty jsonwebtoken
 ```
 Note : Authentication bearer token is not implemented yet
 
