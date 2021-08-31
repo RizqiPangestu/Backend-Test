@@ -13,7 +13,7 @@ function disableButton(src) {
 function searchButton(){
         var form = document.getElementById('search_form')
         var title = document.getElementById('title').value
-        var action = "http://localhost:8080/movies/" + title
+        var action = "http://localhost:3000/movies/" + title
         form.action = action;
 }
 
