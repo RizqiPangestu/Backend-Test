@@ -18,9 +18,9 @@ npm install express axios sequilize
 ```
 install this package too if you want to be same as this repo
 ```bash
-npm install bcrypt body-parser cookie-parser pino@next pino-pretty
+npm install bcrypt body-parser cookie-session pino@next pino-pretty
 ```
-Note : cookies is not implemented yet
+Note : Authentication bearer token is not implemented yet
 
 3. Install mysql. If you use ubuntu, follow [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04). Follow the instruction and create `root` as admin and `password` as password
 
@@ -45,4 +45,3 @@ example `http://http://localhost:8080/movies/harry potter?` will return [this](h
 
 # TODOS
 - Auth bearer token feature
-- Cookies
