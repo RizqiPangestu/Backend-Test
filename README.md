@@ -44,9 +44,11 @@ Use this urls to use some features
 
 ### POST METHOD
 - `/movies/favourites` Add favourite movies to requested `user_id`
+
 To add new favourite, request using json format `{"user_id":"your_user_id","title":"movie_title_to_add"}`
 
 - `/user/add` Add new user
+
 To add new favourite, request using json format `{"name":"your_user_id","password":"password"}`
 
 # TODOS
