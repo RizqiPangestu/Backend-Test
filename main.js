@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require('body-parser')
 const cors = require("cors");
 const logger = require('pino')();
-var routes = require('./routes/routes.js')
+const routes = require('./routes/routes.js');
+const auth = require("./middleware/auth");
 
 const app = express();
 
@@ -11,7 +13,7 @@ var corsOptions = {
 };
 
 const connection = require('./config/connection.js');
-connection.sync({ force: false }).then(() => {
+connection.sync({ force: true }).then(() => {
    console.log("Drop and re-sync db.");
  });
 
@@ -30,12 +32,13 @@ app.use(express.static('public'))
 app.use(routes);
 
 // simple route
-app.get("/", (req, res) => {
+app.get("/",(req, res) => {
   logger.info('[GET REQUEST] Entering Homepage')
   res.sendFile(__dirname + '/homepage.html');
 });
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
+console.log(PORT)
 app.listen(PORT, () => {
    console.log("Example app listening at http://%s:%s", 'localhost', PORT);
 });

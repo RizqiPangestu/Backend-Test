@@ -1,6 +1,11 @@
 // Import model db
+require("dotenv").config()
+const randomstring = require("randomstring");
+var fs = require('fs');
+const auth = require("../middleware/auth");
 const axios = require('axios');
-var bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 const logger = require('pino')();
 var db = require('../models/database.js');
 
@@ -102,18 +107,31 @@ exports.addUser = (req,res) => {
             res.sendStatus(400);
             return;
         }
-    
+        // fs.writeFileSync('controllers/.env', 'TOKEN_KEY='+randomstring.generate());
+        console.log("TOKEN KEY = ",process.env["TOKEN_KEY"])
+
         const newUser = {
             name : req.body.name,
             password : hash
         };
-    
+
+        const token = jwt.sign(
+            {user_id: newUser._id},
+            process.env.TOKEN_KEY,
+            {expiresIn:"2h"}
+        )
+
+        newUser.token = token;
+        console.log(newUser);
+
         db.users.create(newUser)
             .then(data => {
                 res.send(data);
             })
             .catch(err => {
+                console.error(err);
                 res.sendStatus(500);
             })
     })
+
 }

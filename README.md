@@ -18,7 +18,7 @@ npm install express axios sequilize
 ```
 install this package too if you want to be same as this repo
 ```bash
-npm install bcrypt body-parser cookie-parser pino@next
+npm install bcrypt body-parser cookie-parser pino@next pino-pretty
 ```
 Note : cookies is not implemented yet
 

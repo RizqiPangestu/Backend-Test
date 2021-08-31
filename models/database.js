@@ -22,6 +22,9 @@ var Users = connection.define('Users', {
   },
   password: {
     type: DataTypes.STRING
+  },
+  token:{
+    type: DataTypes.STRING
   }
 },{
   // Freeze Table Name
