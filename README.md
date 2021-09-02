@@ -18,7 +18,7 @@ npm install express axios sequelize
 ```
 install this package too if you want to make sure all needed packages installed
 ```bash
-npm install cors bcrypt body-parser cookie-session pino@next pino-pretty jsonwebtoken
+npm install cors bcrypt body-parser cookie-session pino@next pino-pretty dotenv jsonwebtoken
 ```
 Note : Authentication bearer token is not implemented yet
 
