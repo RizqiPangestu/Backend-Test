@@ -1,18 +1,25 @@
 var express = require('express');
 var controller = require('../controllers/controller.js')
 var router = express.Router();
+const auth = require("../middleware/auth");
  
+// Route Homepage
+router.get('/',(auth,controller.homepage))
 // Route Get movies
-router.get('/movies',controller.getMovies);
+router.get('/movies',(auth,controller.getMovies));
 // Route Get movies title
-router.get('/movies/:title',controller.getMoviesTitle);
-// Route Add favourite movies
-router.get('/movies/favourites/:user_id',controller.getFavouritePosters);
+router.get('/movies/:title',(auth,controller.getMoviesTitle));
+// Route Get favourite movies List
+router.get('/movies/favourites/:user_id',(auth,controller.getFavouritePosters));
+// Route Get Users List
+router.get('/user/list',(auth,controller.listUser));
 
-// Route Get all favourite poster
-router.post('/movies/favourites',controller.addFavouritesPoster);
+// Route Add favourite poster
+router.post('/movies/favourites',(auth,controller.addFavouritesPoster));
 // Route Add User
-router.post('/user/add',controller.addUser);
+router.post('/user/add',(auth,controller.addUser));
+// Route Login User
+router.post('/user/login',(auth,controller.loginUser));
  
 // export router
 module.exports = router;

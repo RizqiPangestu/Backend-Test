@@ -12,20 +12,24 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "formidable": "^1.2.2",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.0",
+    "nodemon": "^2.0.12",
     "pino": "^7.0.0-rc.3",
     "pino-http": "^5.7.0",
+    "pug": "^3.0.2",
     "randomstring": "^1.2.1",
     "sequelize": "^6.6.5"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-worker main.js | pino-pretty"
+    "start": "node --experimental-worker main.js | pino-pretty",
+    "dev": "nodemon --experimental-worker main.js | pino-pretty "
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,23 @@
+<%- include('header.ejs') %>
+<form action="" id='search_form' onsubmit="searchButton()" method = "GET">
+    Title: <input type = "text" id="title">
+    <input type = "submit" value = "Search">
+</form>
+
+<form id='favourites_form' onsubmit="searchFavourites()" method = "GET">
+    User's ID Favourites: <input type = "text" id="user_id">
+    <input type = "submit" value = "Search">
+</form>
+
+<form action="http://localhost:3000/movies/favourites/0" method="GET">
+    <button>All User's Favourite List</button>
+</form>
+
+<form action="http://localhost:3000/user/list" method="GET">
+    <button>User List</button>
+</form>
+
+<form action="http://localhost:3000/" method="GET">
+    <button>Refresh Page</button>
+</form>    
+<%- include('footer.ejs') %>

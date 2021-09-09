@@ -1,0 +1,19 @@
+<%- include('header.ejs') %>
+<a href="/" class="link">Go Back</a>
+<h5>USER LIST:</h5>
+<ul class="users">
+    <% data.forEach(function(data) { %>
+    <li class="repo">
+        
+        <p id="user_name"><span><%=data['user_id']%></span> <%=data['name']%></p>
+    </li>
+    <% })%>
+  </ul>
+
+<form action="" id='addUser_form' onsubmit="addUser()" method = "POST">
+    <h5>Add New User</h5>
+    Name: <br><input type = "text" id="name" name="name"> <br>
+    Password: <br><input type = "text" id="password" name="password"><br>
+    <input type="submit" value="Submit">
+</form>
+<%- include('footer.ejs') %>

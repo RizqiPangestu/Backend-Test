@@ -1,0 +1,9 @@
+<%- include('header.ejs') %>
+<img id="poster" src=<%=url%> alt=""> <br>
+<form action="" id='addFavourite_form' onsubmit="addFavourites()" method = "POST">
+    Input User ID: <input type = "text" id="user_id" name="user_id"><br>
+    <input type="hidden" name="title" id="title" value=<%=title%>>
+    <input type = "submit" value = "Add this Movie to User Favourite">
+</form>
+<a href="/" class="link">Go Back</a>
+<%- include('footer.ejs') %>

@@ -1,0 +1,11 @@
+<%- include('header.ejs') %>
+<a href="/" class="link">Go Back</a>
+<h5>FAVOURITES LIST:</h5>
+<ul class="favourites">
+  <% data.forEach(function(data) { %>
+  <li class="repo">
+    <img id="poster" src=<%=data['poster_url']%> alt=""> <br>
+  </li>
+  <% })%>
+</ul>
+<%- include('footer.ejs') %>

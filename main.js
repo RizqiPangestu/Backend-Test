@@ -1,30 +1,42 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session')
-const cors = require("cors");
-const logger = require('pino')();
 const routes = require('./routes/routes.js');
-const auth = require("./middleware/auth");
+const fs = require('fs');
+const os = require("os");
+
+function setEnvValue(key, value) {
+
+  // read file from hdd & split if from a linebreak to a array
+  const ENV_VARS = fs.readFileSync("./.env", "utf8").split(os.EOL);
+
+  // find the env we want based on the key
+  const target = ENV_VARS.indexOf(ENV_VARS.find((line) => {
+      return line.match(new RegExp(key));
+  }));
+
+  // replace the key/value with the new value
+  ENV_VARS.splice(target, 1, `${key}=${value}`);
+
+  // write everything back to the file system
+  fs.writeFileSync("./.env", ENV_VARS.join(os.EOL));
+}
+
+setEnvValue("HOME_DIR",__dirname);
 
 const app = express();
-
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
 
 const connection = require('./config/connection.js');
 connection.sync({ force: false }).then(() => {
    console.log("Drop and re-sync db.");
  });
 
-app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(express.json())
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 app.use(cookieSession({
   name: 'session_id',
@@ -35,16 +47,10 @@ app.use(express.static('public'))
 
 app.use(routes);
 
-// homepage route
-app.get("/",(req, res) => {
-  req.session.views = (req.session.views || 0) + 1;
-  logger.info('[GET REQUEST] Entering Homepage : ' + req.session.views + ' views');
-  res.sendFile(__dirname + '/homepage.html');
-});
+app.set('view engine', 'ejs');
 
 // set port, listen for requests
 const PORT = process.env.PORT;
-console.log(PORT)
 app.listen(PORT, () => {
    console.log("Example app listening at http://%s:%s", 'localhost', PORT);
 });
