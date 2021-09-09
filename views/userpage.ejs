@@ -5,7 +5,7 @@
     <% data.forEach(function(data) { %>
     <li class="repo">
         
-        <p id="user_name"><span><%=data['user_id']%></span> <%=data['name']%></p>
+        <p id="user_name">ID:<span><%=data['user_id']%></span> <%=data['name']%></p>
     </li>
     <% })%>
   </ul>
@@ -15,5 +15,11 @@
     Name: <br><input type = "text" id="name" name="name"> <br>
     Password: <br><input type = "text" id="password" name="password"><br>
     <input type="submit" value="Submit">
+</form>
+
+<form action="" id='delUser_form' onsubmit="delUser()" method = "POST">
+    <h5>Delete User by ID</h5>
+    ID: <br><input type = "number" id="user_id" name="user_id"> <br>
+    <input type="submit" value="Remove">
 </form>
 <%- include('footer.ejs') %>

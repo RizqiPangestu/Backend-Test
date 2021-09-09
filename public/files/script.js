@@ -24,6 +24,13 @@ function addUser(){
     form.action = action;
 }
 
+function delUser(){
+    var form = document.getElementById('delUser_form')
+    var action = "http://localhost:3000/user/delete"
+    form.action = action;
+}
+
+
 function loginUser(){
     var form = document.getElementById('loginUser_form')
     var action = "http://localhost:3000/user/login"

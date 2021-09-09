@@ -6,7 +6,7 @@
 </form>
 
 <form id='favourites_form' onsubmit="searchFavourites()" method = "GET">
-    User's ID Favourites: <input type = "text" id="user_id">
+    User's ID Favourites: <input type = "number" id="user_id" min="1" max="<%=totalUser%>">
     <input type = "submit" value = "Search">
 </form>
 

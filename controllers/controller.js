@@ -9,11 +9,12 @@ var fs = require("fs");
 var UserLoginName = "";
 
 // Homepage
-exports.homepage = (req, res) => {
+exports.homepage = async (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
     logger.info('[GET REQUEST] Entering Homepage : ' + req.session.views + ' views');
     res.render("homepage",{
         name: UserLoginName,
+        totalUser: await db.users.count(),
     });
 }
 
@@ -32,15 +33,17 @@ exports.getMoviesTitle = (req,res) => {
     req.session.views = (req.session.views || 0) + 1;
     logger.info('[GET REQUEST] Get Movies Poster URL : ' + req.session.views + ' views');
     var url = 'http://www.omdbapi.com/?t=' + req.params.title + '&apikey=f34ddbe9'
+
     axios
         .get(url,{
             todo: ''
         })
-        .then(response => {
+        .then(async response => {
             console.log(response.data["Poster"]);
             res.render("posterpage",{
                 title: req.params.title,
                 url: response.data["Poster"],
+                totalUser: await db.users.count(),
             })
             
             res.end();
@@ -217,6 +220,7 @@ exports.loginUser = async (req, res) => {
             UserLoginName = name;
             res.render("homepage",{
                 name: UserLoginName,
+                totalUser: await db.users.count(),
             })
         }else{
             res.render("handler",{
@@ -244,4 +248,33 @@ exports.listUser = async (req, res) => {
         .catch(err => {
             console.error(err);
         })
+}
+
+// Login Page
+exports.deleteUser = async (req, res) => {
+    req.session.views = (req.session.views || 0) + 1;
+    logger.info('[DELETE REQUEST] Entering Homepage : ' + req.session.views + ' views');
+    const username = "";
+    await db.users.findByPk(req.body.user_id).then(data =>{
+        username = data.name;
+    })
+
+    db.favourites.destroy({
+        where: {
+            user_id: req.body.user_id
+        }
+    })
+
+    db.users.destroy({
+        where: {
+            user_id: req.body.user_id
+        }
+    }).then(data => {
+        res.render("handler",{
+            msg: username + " has been removed",
+        })
+    }).catch(err => {
+        console.error(err);
+    })
+    
 }
