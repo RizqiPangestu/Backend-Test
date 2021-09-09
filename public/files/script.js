@@ -23,3 +23,9 @@ function addUser(){
     var action = "http://localhost:3000/user/add"
     form.action = action;
 }
+
+function loginUser(){
+    var form = document.getElementById('loginUser_form')
+    var action = "http://localhost:3000/user/login"
+    form.action = action;
+}

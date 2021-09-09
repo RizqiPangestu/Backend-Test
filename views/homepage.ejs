@@ -1,4 +1,5 @@
 <%- include('header.ejs') %>
+<p>Welcome on Board <%=name%>, go Search ur movies poster</p>
 <form action="" id='search_form' onsubmit="searchButton()" method = "GET">
     Title: <input type = "text" id="title">
     <input type = "submit" value = "Search">
@@ -15,6 +16,10 @@
 
 <form action="http://localhost:3000/user/list" method="GET">
     <button>User List</button>
+</form>
+
+<form action="http://localhost:3000/user/login" method="GET">
+    <button>Change User</button>
 </form>
 
 <form action="http://localhost:3000/" method="GET">

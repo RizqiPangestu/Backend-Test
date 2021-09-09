@@ -13,6 +13,8 @@ router.get('/movies/:title',(auth,controller.getMoviesTitle));
 router.get('/movies/favourites/:user_id',(auth,controller.getFavouritePosters));
 // Route Get Users List
 router.get('/user/list',(auth,controller.listUser));
+// Route Login User
+router.get('/user/login',(auth,controller.loginUserPage));
 
 // Route Add favourite poster
 router.post('/movies/favourites',(auth,controller.addFavouritesPoster));

@@ -6,11 +6,15 @@ const logger = require('pino')();
 var db = require('../models/database.js');
 var fs = require("fs");
 
+var UserLoginName = "";
+
 // Homepage
 exports.homepage = (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
     logger.info('[GET REQUEST] Entering Homepage : ' + req.session.views + ' views');
-    res.render("homepage");
+    res.render("homepage",{
+        name: UserLoginName,
+    });
 }
 
 // Forbidden Request
@@ -169,7 +173,7 @@ exports.addUser = (req,res) => {
         db.users.create(newUser)
             .then(data => {
                 res.render("handler",{
-                    msg: "User "+ newUser.name +"'s has been added to database",
+                    msg: "User "+ newUser.name +" has been added to database",
                 })
             })
             .catch(err => {
@@ -180,13 +184,20 @@ exports.addUser = (req,res) => {
 
 }
 
+// Login Page
+exports.loginUserPage = (req, res) => {
+    req.session.views = (req.session.views || 0) + 1;
+    logger.info('[GET REQUEST] Entering Homepage : ' + req.session.views + ' views');
+    res.render("loginpage");
+}
+
+
 // Login User
 exports.loginUser = async (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
     logger.info('[POST REQUEST] Login User : ' + req.session.views + ' views');
     try{
         const {name,password} = req.body;
-
         if(!(name && password)){
             res.render("handler",{
                 msg: "All input is required",
@@ -203,7 +214,10 @@ exports.loginUser = async (req, res) => {
                 {expiresIn:"2h"}
             )
             user.token = token;
-            res.send(user);
+            UserLoginName = name;
+            res.render("homepage",{
+                name: UserLoginName,
+            })
         }else{
             res.render("handler",{
                 msg: "Name or Password not match",
