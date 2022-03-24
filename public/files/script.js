@@ -1,3 +1,4 @@
+
 function searchButton(){
     var form = document.getElementById('search_form')
     var title = document.getElementById('title').value
@@ -34,5 +35,11 @@ function delUser(){
 function loginUser(){
     var form = document.getElementById('loginUser_form')
     var action = "http://localhost:3000/user/login"
+    form.action = action;
+}
+
+function delFav(){
+    var form = document.getElementById('delFav_form')
+    var action = "http://localhost:3000/movies/favourites/delete"
     form.action = action;
 }

@@ -28,6 +28,8 @@ router.post('/user/login',(auth,controller.loginUser));
 //====DELETE====//
 // Route Delete User 
 router.post('/user/delete',(auth,controller.deleteUser));
+// Route Delete User's Favourite 
+router.post('/movies/favourites/delete',(auth,controller.deleteFavourite));
 
 // export router
 module.exports = router;

@@ -1,10 +1,17 @@
 <%- include('header.ejs') %>
 <a href="/" class="link">Go Back</a>
-<h5>FAVOURITES LIST:</h5>
+<h5><%=dataUser[0]["name"]%>'S FAVOURITES LIST:</h5>
 <ul class="favourites">
-  <% data.forEach(function(data) { %>
+  <% dataFavourite.forEach(function(dataFavourite) { %>
   <li class="repo">
-    <img id="poster" src=<%=data['poster_url']%> alt=""> <br>
+    <%=dataFavourite['title']%> <br>
+    <img id="poster" src=<%=dataFavourite['poster_url']%> alt="">
+    <form action="" id='delFav_form' onsubmit="delFav()" method = "POST">
+      <input type = "hidden" id="title" name="title" value="<%=dataFavourite['title']%>">
+      <input type = "hidden" id="user_id" name="user_id" value="<%=dataFavourite['user_id']%>">
+      <input type = "hidden" id="user_name" name="user_name" value="<%=dataUser[0]['name']%>">
+      <input type="submit" value="Remove">
+    </form>
   </li>
   <% })%>
 </ul>

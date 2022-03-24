@@ -12,10 +12,12 @@ var UserLoginName = "";
 exports.homepage = async (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
     logger.info('[GET REQUEST] Entering Homepage : ' + req.session.views + ' views');
-    res.render("homepage",{
-        name: UserLoginName,
-        totalUser: await db.users.count(),
-    });
+    db.users.findAll({}).then(data => {
+        res.render("homepage",{
+            name: UserLoginName,
+            data,
+        });
+    })
 }
 
 // Forbidden Request
@@ -39,14 +41,14 @@ exports.getMoviesTitle = (req,res) => {
             todo: ''
         })
         .then(async response => {
-            console.log(response.data["Poster"]);
-            res.render("posterpage",{
-                title: req.params.title,
-                url: response.data["Poster"],
-                totalUser: await db.users.count(),
+            db.users.findAll({}).then(data => {
+                console.log(response.data["Poster"]);
+                res.render("posterpage",{
+                    data,
+                    title: req.params.title,
+                    url: response.data["Poster"],
+                })
             })
-            
-            res.end();
         })
         .catch(error => {
           console.error(error);
@@ -56,13 +58,19 @@ exports.getMoviesTitle = (req,res) => {
 
 // Get User's Favourites Poster
 exports.getFavouritePosters = (req,res) => {
+    console.log(req.params);
+    console.log(req.body);
     if (req.params.user_id == 0){
         req.session.views = (req.session.views || 0) + 1;
         logger.info("[GET REQUEST] get all users favourite posters URL list : ", req.session.views + ' views');
         db.favourites.findAll({})
-            .then(data => {
+            .then(dataFavourite => {
                 res.render("favList",{
-                    data,
+                    dataFavourite,
+                    dataUser: [{
+                        name: "ALL USER",
+                        user_id: 0,
+                    }],
                 });
             })
             .catch(err => {
@@ -73,16 +81,25 @@ exports.getFavouritePosters = (req,res) => {
         logger.info('[GET REQUEST] get user id: ' + req.params.user_id + ' favourite posters URL list : ' + req.session.views + ' views');;
         db.favourites.findAll({
             where:{
-                user_id : req.params.user_id
+                user_id: req.params.user_id
             }
-        })
-            .then(data => {
-                res.render("favList",{
-                    data,
-                });
+        }).then(dataFavourite => {
+                db.users.findAll({
+                    where: {
+                        user_id: dataFavourite[0]['user_id']
+                    }
+                }).then(dataUser =>{
+                    res.render("favList",{
+                        dataFavourite,
+                        dataUser,
+                    });
+                })
             })
             .catch(err => {
                 console.error(err);
+                res.render("handler",{
+                    msg: "This user doesn't has favourite movies yet",
+                })
             })
     }
 }
@@ -240,7 +257,7 @@ exports.listUser = async (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
     logger.info('[GET REQUEST] get users list : ' + req.session.views + ' views');;
     db.users.findAll({})
-        .then(data => {
+        .then(async data => {
             res.render("userpage",{
                 data,
             });
@@ -250,31 +267,67 @@ exports.listUser = async (req, res) => {
         })
 }
 
-// Login Page
+// Delete User
 exports.deleteUser = async (req, res) => {
     req.session.views = (req.session.views || 0) + 1;
-    logger.info('[DELETE REQUEST] Entering Homepage : ' + req.session.views + ' views');
-    const username = "";
-    await db.users.findByPk(req.body.user_id).then(data =>{
+    logger.info('[DELETE REQUEST] Delete User : ' + req.session.views + ' views');
+    var username = "";
+
+    await db.users.findOne({
+        where:{
+            user_id: req.body.user_id
+        }
+    }).then(dataUser => {
         username = data.name;
-    })
-
-    db.favourites.destroy({
-        where: {
-            user_id: req.body.user_id
-        }
-    })
-
-    db.users.destroy({
-        where: {
-            user_id: req.body.user_id
-        }
-    }).then(data => {
-        res.render("handler",{
-            msg: username + " has been removed",
+        db.favourites.destroy({
+            where: {
+                user_id: dataUser.user_id
+            }
         })
-    }).catch(err => {
-        console.error(err);
+
+        db.users.destroy({
+            where: {
+                user_id: dataUser.user_id
+            }
+        }).then( _ => {
+            res.render("handler",{
+                msg: username + " has been removed",
+            })
+        }).catch(err => {
+            console.error(err);
+        })
     })
+    
+}
+
+// Delete User
+exports.deleteFavourite = async (req, res) => {
+    req.session.views = (req.session.views || 0) + 1;
+    logger.info('[DELETE REQUEST] Delete Poster : ' + req.session.views + ' views');
+    var newData = {}
+    
+    db.favourites.findAll({
+        where:{
+            user_id: req.body.user_id,
+        }
+    }).then(async dataFavourite => {
+        await db.favourites.destroy({
+            where:{
+                title: dataFavourite[0]['title'],
+            }
+        })
+        newData = dataFavourite;
+        console.log(newData)
+        console.log(dataFavourite)
+    })
+
+    console.log(newData[0])
+        res.render("favList",{
+            dataFavourite: newData,
+            dataUser:[{
+                name: req.body.user_name,
+                user_id: req.body.user_id,
+            }],
+        });
     
 }

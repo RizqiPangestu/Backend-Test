@@ -13,13 +13,17 @@
 <form action="" id='addUser_form' onsubmit="addUser()" method = "POST">
     <h5>Add New User</h5>
     Name: <br><input type = "text" id="name" name="name"> <br>
-    Password: <br><input type = "text" id="password" name="password"><br>
+    Password: <br><input type = "password" id="password" name="password"><br>
     <input type="submit" value="Submit">
 </form>
 
 <form action="" id='delUser_form' onsubmit="delUser()" method = "POST">
     <h5>Delete User by ID</h5>
-    ID: <br><input type = "number" id="user_id" name="user_id"> <br>
+    <select id="user_id" name="user_id">
+        <% data.forEach(function(data) { %>
+            <option value="<%=data['user_id']%>"><%=data['user_id']%></option>
+        <% })%>
+      </select>
     <input type="submit" value="Remove">
-</form>
+  </form> 
 <%- include('footer.ejs') %>

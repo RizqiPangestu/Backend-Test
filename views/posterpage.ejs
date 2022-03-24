@@ -1,7 +1,12 @@
 <%- include('header.ejs') %>
 <img id="poster" src=<%=url%> alt=""> <br>
 <form action="" id='addFavourite_form' onsubmit="addFavourites()" method = "POST">
-    Input User ID: <input type = "number" id="user_id" name="user_id" min="1" max="<%=totalUser%>"><br>
+    Input User ID:
+    <select id="user_id" name="user_id">
+        <% data.forEach(function(data) { %>
+            <option value="<%=data['user_id']%>"><%=data['user_id']%></option>
+        <% })%>
+      </select>
     <input type="hidden" name="title" id="title" value=<%=title%>>
     <input type = "submit" value = "Add this Movie to User Favourite">
 </form>
